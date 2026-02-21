@@ -1,0 +1,141 @@
+import pandas as pd
+from io import StringIO
+
+csv_data = """Sub-Región,Planta,Tecnologia,Capacidad MW
+Baja California,Ciprés,Turbogás,27.5
+Baja California,Mexicali,Turbogás,62.0
+Baja California,Presidente,Ciclo combinado,30.0
+Baja California,Presidente,Turbogás,30.0
+Baja California,San Luis,Ciclo combinado,683.0
+Baja California,San Luis,Turbogás,78.0
+Baja California,Turbo Gas Mexicali,Turbogás,55.0
+Baja California,La Rosita,Carboeléctrica,360.0
+Baja California,La Rumorosa,Geotermoeléctrica,10.0
+Baja California,Nueva Rosita,Carboeléctrica,38.0
+Baja California,Guerrero Negro,Combustión interna,7.4
+Baja California,Puerto Libertad,Ciclo combinado,632.0
+Baja California,Puerto Libertad,Turbogás,30.0
+Baja California,San Felipe,Combustión interna,5.2
+Baja California,Santa Rosalía,Combustión interna,15.8
+Baja California,Vizcaíno,Combustión interna,5.8
+Baja California,CTG La Paz,Combustión interna,21.4
+Baja California,CC Baja California,Combustión interna,48.6
+Baja California,CCBC01,Ciclo combinado,0.9
+Baja California,CCBC02,Ciclo combinado,0.9
+Baja California,CCBC03,Ciclo combinado,0.9
+Baja California,CCBC04,Ciclo combinado,0.9
+Central,Agua Prieta II,Ciclo combinado,717.0
+Central,Agua Prieta,Ciclo combinado,120.0
+Central,Agua Prieta,Turbogás,60.0
+Central,Alameda,Turbogás,120.0
+Central,Altamira,Ciclo combinado,1120.0
+Central,Altamira III,Ciclo combinado,1038.0
+Central,Baja California Sur II,Turbogás,32.0
+Central,Balderas,Combustión interna,15.0
+Central,Bellavista,Turbogás,50.0
+Central,Carbón II,Carboeléctrica,2804.0
+Central,"Pemex Refinación, Refinería",Termoeléctrica,350.0
+Central,CC Aries,Ciclo combinado,1020.0
+Central,CC BCP,Ciclo combinado,1012.0
+Central,CCCC1,Ciclo combinado,0.9
+Central,CCCC2,Ciclo combinado,0.9
+Central,CCCCC,Ciclo combinado,0.9
+Central,Central I (Hidroeléctrica),Hidroeléctrica,18.8
+Central,Central II (Hidroeléctrica),Hidroeléctrica,18.8
+Central,Central III (Hidroeléctrica),Hidroeléctrica,18.8
+Central,Central IV (Hidroeléctrica),Hidroeléctrica,18.8
+Central,El Caracol,Hidroeléctrica,600.0
+Central,El Cajón,Hidroeléctrica,750.0
+Central,Guadalupe Victoria,Combustión interna,18.0
+Central,Huinalá,Ciclo combinado,515.0
+Central,Huinalá,Turbogás,55.0
+Central,La Yesca,Hidroeléctrica,750.0
+Central,Las Palmas,Turbogás,240.0
+Central,Los Azufres,Geotermoeléctrica,247.5
+Central,Los Humeros,Geotermoeléctrica,95.0
+Central,Los Mochis,Combustión interna,96.0
+Central,Mazatlán I,Combustión interna,60.0
+Central,Mazatlán II,Combustión interna,60.0
+Central,Monterrey III,Ciclo combinado,500.0
+Central,Monterrey V,Ciclo combinado,1000.0
+Central,Monterrey VI,Ciclo combinado,1000.0
+Central,Navolato,Combustión interna,63.0
+Central,Poza Rica,Ciclo combinado,50.0
+Central,Saltillo,Ciclo combinado,400.0
+Central,San Jerónimo,Ciclo combinado,1150.0
+Central,Tamazunchale,Ciclo combinado,1130.0
+Central,Topolobampo II,Ciclo combinado,1250.0
+Central,Topolobampo III,Ciclo combinado,710.0
+Central,Topolobampo,Turbogás,129.3
+Noreste,Camargo,Ciclo combinado,546.4
+Noreste,Cananea,Turbogás,130.0
+Noreste,CC Empalme I,Ciclo combinado,770.0
+Noreste,CC Empalme II,Ciclo combinado,770.0
+Noreste,CC Norte III,Ciclo combinado,924.0
+Noreste,CC Norte IV,Ciclo combinado,924.0
+Noreste,CC Norte V,Ciclo combinado,924.0
+Noreste,CC Norte VI,Ciclo combinado,924.0
+Noreste,Chihuahua II,Combustión interna,77.3
+Noreste,Chihuahua III,Combustión interna,77.3
+Noreste,Chihuahua IV,Combustión interna,77.3
+Noreste,Chihuahua V,Combustión interna,77.3
+Norte,Benito Juárez,Ciclo combinado,327.0
+Norte,Benito Juárez,Turbogás,24.0
+Norte,Cadereyta,Termoeléctrica,300.0
+Norte,Carbón III,Carboeléctrica,1400.0
+Norte,Carbón IV,Carboeléctrica,1400.0
+Norte,Chiapas,Hidroeléctrica,2400.0
+Norte,Durango,Combustión interna,32.0
+Norte,Gómez Palacio,Turbogás,90.0
+Norte,Guadalupe Victoria II,Combustión interna,18.0
+Norte,Monclova,Termoeléctrica,300.0
+Norte,Río Escondido,Carboeléctrica,1200.0
+Norte,Tula,Termoeléctrica,1500.0
+Occidental,Agua Prieta III,Ciclo combinado,650.0
+Occidental,Agua Prieta IV,Ciclo combinado,650.0
+Occidental,Bajío,Ciclo combinado,600.0
+Occidental,Calderón,Ciclo combinado,595.0
+Occidental,Celaya,Ciclo combinado,600.0
+Occidental,Chapala,Hidroeléctrica,50.0
+Occidental,Colima,Combustión interna,32.0
+Occidental,El Bajío II,Ciclo combinado,600.0
+Occidental,El Bajío III,Ciclo combinado,600.0
+Occidental,El Bajío IV,Ciclo combinado,600.0
+Occidental,El Bajío V,Ciclo combinado,600.0
+Occidental,El Bajío VI,Ciclo combinado,600.0
+Occidental,El Bajío VII,Ciclo combinado,600.0
+Occidental,El Bajío VIII,Ciclo combinado,600.0
+Occidental,El Bajío IX,Ciclo combinado,600.0
+Occidental,El Bajío X,Ciclo combinado,600.0
+Occidental,El Bajío XI,Ciclo combinado,600.0
+Occidental,El Bajío XII,Ciclo combinado,600.0
+Occidental,El Bajío XIII,Ciclo combinado,600.0
+Occidental,El Bajío XIV,Ciclo combinado,600.0
+Occidental,El Bajío XV,Ciclo combinado,600.0
+Occidental,El Bajío XVI,Ciclo combinado,600.0
+Occidental,El Bajío XVII,Ciclo combinado,600.0
+Occidental,El Bajío XVIII,Ciclo combinado,600.0
+Occidental,El Bajío XIX,Ciclo combinado,600.0
+Occidental,El Bajío XX,Ciclo combinado,600.0
+Occidental,El Bajío XXI,Ciclo combinado,600.0
+Occidental,El Bajío XXII,Ciclo combinado,600.0
+Occidental,El Bajío XXIII,Ciclo combinado,600.0
+Occidental,El Bajío XXIV,Ciclo combinado,600.0
+Occidental,El Bajío XXV,Ciclo combinado,600.0
+Peninsular,Cozumel,Combustión interna,32.0
+Peninsular,Merida III,Ciclo combinado,484.0
+Peninsular,Merida IV,Ciclo combinado,484.0
+Peninsular,Merida V,Ciclo combinado,484.0
+Peninsular,Merida VI,Ciclo combinado,484.0
+Peninsular,Merida VII,Ciclo combinado,484.0
+Peninsular,Merida VIII,Ciclo combinado,484.0
+Peninsular,Valladolid II,Ciclo combinado,221.2
+Peninsular,Valladolid III,Ciclo combinado,221.2
+Peninsular,Xul-Ha,Turbogás,14.0
+"""
+
+df = pd.read_csv(StringIO(csv_data))
+
+# listo: df ya es tu tabla en pandas
+print(df.head())
+print(df.shape)
