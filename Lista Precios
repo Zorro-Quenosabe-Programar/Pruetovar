@@ -1,0 +1,102 @@
+import pandas as pd
+
+# Crear lista como diccionario
+data = [
+    # Central
+    ["Central","Ciclo Combinado",60],
+    ["Central","Turbogas",70],
+    ["Central","Carbon/Termoelectrica",90],
+    ["Central","Hidroelectrica",50],
+    ["Central","Nuclear",80],
+    ["Central","Solar Fotovoltaica",40],
+    ["Central","Eolica",45],
+    ["Central","Geotermica",65],
+    ["Central","Biomasa/Biogas",85],
+
+    # Norte
+    ["Norte","Ciclo Combinado",50],
+    ["Norte","Turbogas",70],
+    ["Norte","Carbon/Termoelectrica",85],
+    ["Norte","Hidroelectrica",50],
+    ["Norte","Nuclear",80],
+    ["Norte","Solar Fotovoltaica",35],
+    ["Norte","Eolica",35],
+    ["Norte","Geotermica",65],
+    ["Norte","Biomasa/Biogas",85],
+
+    # Noreste
+    ["Noreste","Ciclo Combinado",50],
+    ["Noreste","Turbogas",70],
+    ["Noreste","Carbon/Termoelectrica",85],
+    ["Noreste","Hidroelectrica",50],
+    ["Noreste","Nuclear",80],
+    ["Noreste","Solar Fotovoltaica",38],
+    ["Noreste","Eolica",38],
+    ["Noreste","Geotermica",65],
+    ["Noreste","Biomasa/Biogas",85],
+
+    # Occidental
+    ["Occidental","Ciclo Combinado",60],
+    ["Occidental","Turbogas",70],
+    ["Occidental","Carbon/Termoelectrica",90],
+    ["Occidental","Hidroelectrica",50],
+    ["Occidental","Nuclear",80],
+    ["Occidental","Solar Fotovoltaica",38],
+    ["Occidental","Eolica",38],
+    ["Occidental","Geotermica",65],
+    ["Occidental","Biomasa/Biogas",85],
+
+    # Oriental
+    ["Oriental","Ciclo Combinado",65],
+    ["Oriental","Turbogas",75],
+    ["Oriental","Carbon/Termoelectrica",95],
+    ["Oriental","Hidroelectrica",50],
+    ["Oriental","Nuclear",80],
+    ["Oriental","Solar Fotovoltaica",45],
+    ["Oriental","Eolica",30],
+    ["Oriental","Geotermica",65],
+    ["Oriental","Biomasa/Biogas",85],
+
+    # Peninsular
+    ["Peninsular","Ciclo Combinado",80],
+    ["Peninsular","Turbogas",80],
+    ["Peninsular","Carbon/Termoelectrica",95],
+    ["Peninsular","Hidroelectrica",50],
+    ["Peninsular","Nuclear",80],
+    ["Peninsular","Solar Fotovoltaica",40],
+    ["Peninsular","Eolica",45],
+    ["Peninsular","Geotermica",65],
+    ["Peninsular","Biomasa/Biogas",85],
+
+    # Baja California
+    ["Baja California","Ciclo Combinado",70],
+    ["Baja California","Turbogas",75],
+    ["Baja California","Carbon/Termoelectrica",95],
+    ["Baja California","Hidroelectrica",50],
+    ["Baja California","Nuclear",80],
+    ["Baja California","Solar Fotovoltaica",35],
+    ["Baja California","Eolica",40],
+    ["Baja California","Geotermica",65],
+    ["Baja California","Biomasa/Biogas",85],
+
+    # Baja California Sur
+    ["Baja California Sur","Ciclo Combinado",85],
+    ["Baja California Sur","Turbogas",85],
+    ["Baja California Sur","Carbon/Termoelectrica",100],
+    ["Baja California Sur","Hidroelectrica",50],
+    ["Baja California Sur","Nuclear",80],
+    ["Baja California Sur","Solar Fotovoltaica",42],
+    ["Baja California Sur","Eolica",48],
+    ["Baja California Sur","Geotermica",65],
+    ["Baja California Sur","Biomasa/Biogas",85],
+]
+
+# Crear DataFrame
+df_costos = pd.DataFrame(data, columns=[
+    "Region",
+    "Tecnologia",
+    "Costo_Operativo_USD_MWh"
+])
+
+# Ver resultado
+print(df_costos.head())
